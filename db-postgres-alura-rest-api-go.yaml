@@ -1,0 +1,115 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: alura-rest-api-go
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  namespace: alura-rest-api-go
+data:
+  POSTGRES_USER: root
+  POSTGRES_PASSWORD: root
+  POSTGRES_DB: root
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: alura-rest-api-go
+spec:
+  selector:
+    app: postgres
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: 5432
+      nodePort: 30010
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: alura-rest-api-go
+spec:
+  selector:
+    matchLabels:
+      app: postgres
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres
+          envFrom:
+            - configMapRef:
+                name: postgres-config
+          ports:
+            - name: postgres
+              containerPort: 5432
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: postgres-data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pgadmin-config
+  namespace: alura-rest-api-go
+data:
+  PGADMIN_DEFAULT_EMAIL: email@email.com
+  PGADMIN_DEFAULT_PASSWORD: "123456"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pgadmin-compose
+  namespace: alura-rest-api-go
+spec:
+  selector:
+    app: pgadmin-compose
+  ports:
+    - name: pgadmin-compose
+      port: 80
+      targetPort: 80
+      nodePort: 30011
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgadmin-compose
+  namespace: alura-rest-api-go
+spec:
+  selector:
+    matchLabels:
+      app: pgadmin-compose
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pgadmin-compose
+    spec:
+      containers:
+        - name: pgadmin-compose
+          image: dpage/pgadmin4
+          envFrom:
+            - configMapRef:
+                name: pgadmin-config
+          ports:
+            - name: pgadmin-compose
+              containerPort: 80
+          volumeMounts:
+            - name: pgadmin-compose-data
+              mountPath: /var/lib/pgadmin
+      volumes:
+        - name: pgadmin-compose-data
+          emptyDir: {}
