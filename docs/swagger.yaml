@@ -1,0 +1,164 @@
+definitions:
+  models.Student:
+    properties:
+      fiscalNumber:
+        minLength: 11
+        type: string
+      identificationNumber:
+        minLength: 9
+        type: string
+      name:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /students:
+    get:
+      consumes:
+      - application/json
+      description: A method to get all students
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Student'
+      summary: Get All Students
+      tags:
+      - Students
+    post:
+      consumes:
+      - application/json
+      description: A method to create a student
+      parameters:
+      - description: Student
+        in: body
+        name: student
+        required: true
+        schema:
+          $ref: '#/definitions/models.Student'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Student'
+      summary: Create Student
+      tags:
+      - Students
+  /students/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: A method to delete a student
+      parameters:
+      - description: Student ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Delete Student
+      tags:
+      - Students
+    get:
+      consumes:
+      - application/json
+      description: A method to get a student by ID
+      parameters:
+      - description: Student ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Student'
+      summary: Get Student by ID
+      tags:
+      - Students
+    patch:
+      consumes:
+      - application/json
+      description: A method to edit a student
+      parameters:
+      - description: Student ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Student
+        in: body
+        name: student
+        required: true
+        schema:
+          $ref: '#/definitions/models.Student'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Student'
+      summary: Edit Student
+      tags:
+      - Students
+    put:
+      consumes:
+      - application/json
+      description: A method to update a student
+      parameters:
+      - description: Student ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Student
+        in: body
+        name: student
+        required: true
+        schema:
+          $ref: '#/definitions/models.Student'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Student'
+      summary: Update Student
+      tags:
+      - Students
+  /students/fiscal_number/{fiscalNumber}:
+    get:
+      consumes:
+      - application/json
+      description: A method to get a student by Fiscal Number
+      parameters:
+      - description: Student Fiscal Number
+        in: path
+        name: fiscalNumber
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Student'
+      summary: Get Student by Fiscal Number
+      tags:
+      - Students
+swagger: "2.0"
