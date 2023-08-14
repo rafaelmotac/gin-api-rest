@@ -19,3 +19,9 @@
 
 # Go workspace file
 go.work
+
+#
+# IDEs and editors
+.idea
+.vscode
+api-go-gin
