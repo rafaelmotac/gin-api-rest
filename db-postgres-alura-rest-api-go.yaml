@@ -9,9 +9,9 @@ metadata:
   name: postgres-config
   namespace: alura-rest-api-go
 data:
-  POSTGRES_USER: root
-  POSTGRES_PASSWORD: root
-  POSTGRES_DB: root
+  POSTGRES_USER: "root"
+  POSTGRES_PASSWORD: "root"
+  POSTGRES_DB: "root"
 ---
 apiVersion: v1
 kind: Service
@@ -65,7 +65,7 @@ metadata:
   name: pgadmin-config
   namespace: alura-rest-api-go
 data:
-  PGADMIN_DEFAULT_EMAIL: email@email.com
+  PGADMIN_DEFAULT_EMAIL: "email@email.com"
   PGADMIN_DEFAULT_PASSWORD: "123456"
 ---
 apiVersion: v1
