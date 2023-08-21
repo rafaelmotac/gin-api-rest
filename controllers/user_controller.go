@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const InternalServerErrorMessage = "Error creating user."
+const ErrorCreatingUser = "Error creating user."
 
 func CreateUser(c *gin.Context) {
 	var userDTO models.UserDTO
@@ -22,18 +22,13 @@ func CreateUser(c *gin.Context) {
 
 	userSaved, errorCode := services.CreateUser(&userDTO)
 
-	if errorCode != nil && errorCode.Kind() == problem.User_AlreadyExists_Error {
+	if errorCode != nil && errorCode.Kind() == problem.User_Already_Exists_Error {
 		returnStatusConflictWithMessage(c, "Username already exists.")
 		return
 	} else if errorCode != nil {
-		returnStatusInternalServerErrorWithMessage(c, InternalServerErrorMessage)
+		returnStatusInternalServerErrorWithMessage(c, ErrorCreatingUser)
 		return
 
-	}
-
-	if userSaved == nil {
-		returnStatusInternalServerErrorWithMessage(c, InternalServerErrorMessage)
-		return
 	}
 
 	returnStatusCreatedWithEntity(c, userSaved)

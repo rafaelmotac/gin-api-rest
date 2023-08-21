@@ -13,7 +13,7 @@ func CreateUser(user *models.UserDTO) (*models.UserDTO, problem.ApplicationError
 
 		err := &problem.MessageErrorCode{
 			Message:   "Username already exists.",
-			ErrorCode: problem.User_AlreadyExists_Error,
+			ErrorCode: problem.User_Already_Exists_Error,
 		}
 
 		log.Println(err.Error())
@@ -56,8 +56,4 @@ func verifyIfUserExist(user *models.User) bool {
 		return false
 	}
 	return true
-}
-
-func returnMessage() string {
-	return "fudeu"
 }
