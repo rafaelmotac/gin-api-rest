@@ -3,6 +3,7 @@ package controllers
 import (
 	"api-go-gin/models"
 	"api-go-gin/services"
+	"api-go-gin/util"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -190,7 +191,7 @@ func DeleteStudent(c *gin.Context) {
 }
 
 func validateStudent(c *gin.Context, student models.Student) bool {
-	validationErrs := services.ValidateModel(student)
+	validationErrs := util.ValidateModel(student)
 
 	if validationErrs != nil {
 		returnBadRequestWithValidationErrors(c, validationErrs)

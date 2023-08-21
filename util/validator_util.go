@@ -1,21 +1,13 @@
-package services
+package util
 
 import (
+	"api-go-gin/config"
 	"fmt"
-
 	"github.com/go-playground/validator/v10"
-	"github.com/go-playground/validator/v10/non-standard/validators"
 )
 
-var Validate *validator.Validate
-
-func InitValidator() {
-	Validate = validator.New()
-	Validate.RegisterValidation("not-blank", validators.NotBlank)
-}
-
 func ValidateModel(s interface{}) []string {
-	err := Validate.Struct(s)
+	err := config.Validate.Struct(s)
 	if err != nil {
 		var errs []string
 		for _, err := range err.(validator.ValidationErrors) {

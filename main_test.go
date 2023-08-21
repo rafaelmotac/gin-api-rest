@@ -1,10 +1,10 @@
 package main
 
 import (
+	"api-go-gin/config"
 	"api-go-gin/controllers"
 	"api-go-gin/database"
 	"api-go-gin/models"
-	"api-go-gin/services"
 	"bytes"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
@@ -100,7 +100,7 @@ func TestGetStudentById(t *testing.T) {
 }
 
 func TestUpdateStudentById(t *testing.T) {
-	services.InitValidator()
+	config.InitValidator()
 	database.DbConnect()
 	createMockStudent()
 	defer deleteMockStudent()
@@ -132,7 +132,7 @@ func TestUpdateStudentById(t *testing.T) {
 }
 
 func TestEditStudentById(t *testing.T) {
-	services.InitValidator()
+	config.InitValidator()
 	database.DbConnect()
 	createMockStudent()
 	defer deleteMockStudent()
@@ -160,7 +160,7 @@ func TestEditStudentById(t *testing.T) {
 }
 
 func TestCreateStudent(t *testing.T) {
-	services.InitValidator()
+	config.InitValidator()
 	database.DbConnect()
 	r := SetupTestingRoutes()
 	r.POST("/students", controllers.CreateStudent)

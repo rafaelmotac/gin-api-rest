@@ -1,13 +1,13 @@
 package main
 
 import (
+	"api-go-gin/config"
 	"api-go-gin/database"
 	"api-go-gin/routes"
-	"api-go-gin/services"
 )
 
 func main() {
-	services.InitValidator()
+	config.InitValidator()
 	database.DbConnect()
 	routes.HandleRequests()
 }

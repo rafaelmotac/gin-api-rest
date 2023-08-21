@@ -36,5 +36,7 @@ func HandleRequests() {
 	r.PUT("/students/:id", controllers.UpdateStudent)
 	r.PATCH("/students/:id", controllers.EditStudent)
 	r.DELETE("/students/:id", controllers.DeleteStudent)
+	r.POST("/users", controllers.CreateUser)
+	r.GET("/users/:username", controllers.GetUserByUsername)
 	r.Run(":9000")
 }
