@@ -3,9 +3,13 @@ package routes
 import (
 	"api-go-gin/controllers"
 	docs "api-go-gin/docs"
+	"api-go-gin/middleware"
+	"api-go-gin/properties"
+	"fmt"
 	"github.com/gin-contrib/cors"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"log"
 
 	"github.com/gin-gonic/gin"
 )
@@ -27,14 +31,24 @@ func HandleRequests() {
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
 	r.LoadHTMLGlob("templates/*")
-	r.GET("/index", controllers.Index)
+
+	r.POST("/login", controllers.Login)
 	r.GET("/", controllers.Greeting)
-	r.GET("/students", controllers.GetAllStudents)
-	r.GET("/students/:id", controllers.GetStudent)
-	r.GET("/students/fiscal_number/:fiscalNumber", controllers.GetStudentByFiscalNumber)
-	r.POST("/students", controllers.CreateStudent)
-	r.PUT("/students/:id", controllers.UpdateStudent)
-	r.PATCH("/students/:id", controllers.EditStudent)
-	r.DELETE("/students/:id", controllers.DeleteStudent)
-	r.Run(":9000")
+
+	private := r.Group("/")
+	private.Use(middleware.JWTAuthMiddleware())
+
+	private.GET("/students", controllers.GetAllStudents)
+	private.GET("/students/:id", controllers.GetStudent)
+	private.GET("/students/fiscal_number/:fiscalNumber", controllers.GetStudentByFiscalNumber)
+	private.POST("/students", controllers.CreateStudent)
+	private.PUT("/students/:id", controllers.UpdateStudent)
+	private.PATCH("/students/:id", controllers.EditStudent)
+	private.DELETE("/students/:id", controllers.DeleteStudent)
+	private.POST("/users", controllers.CreateUser)
+	private.GET("/users/:username", controllers.GetUserByUsername)
+	err := r.Run(fmt.Sprintf(":%d", properties.Properties.Server.Port))
+	if err != nil {
+		log.Fatal(err)
+	}
 }

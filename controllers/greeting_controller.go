@@ -13,6 +13,7 @@ import (
 // @Accept json
 // @Produce json
 // @Success 200 {object} string
+// @Router / [get]
 func Greeting(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Hello World!",

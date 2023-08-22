@@ -36,3 +36,21 @@ func returnStatusBadRequestWithErr(c *gin.Context, err error) {
 		"error": err,
 	})
 }
+
+func returnStatusInternalServerErrorWithMessage(c *gin.Context, message string) {
+	c.JSON(http.StatusInternalServerError, gin.H{
+		"error": message,
+	})
+}
+
+func returnStatusConflictWithMessage(c *gin.Context, message string) {
+	c.JSON(http.StatusConflict, gin.H{
+		"error": message,
+	})
+}
+
+func returnStatusUnauthorizedWithMessage(c *gin.Context, s string) {
+	c.JSON(http.StatusUnauthorized, gin.H{
+		"error": s,
+	})
+}
