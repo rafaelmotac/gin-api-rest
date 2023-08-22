@@ -5,17 +5,9 @@ import (
 	"api-go-gin/services"
 	"api-go-gin/util"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 const RecordNotFoundMessage = "Record not found."
-
-func Index(c *gin.Context) {
-	c.HTML(http.StatusOK, "index.html", gin.H{
-		"title":   "Home Page",
-		"message": "Hello World!",
-	})
-}
 
 // GetAllStudents godoc
 // @Summary Get All Students
@@ -24,6 +16,7 @@ func Index(c *gin.Context) {
 // @Tags Students
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} models.Student
 // @Router /students [get]
 func GetAllStudents(c *gin.Context) {
@@ -40,6 +33,7 @@ func GetAllStudents(c *gin.Context) {
 // @Tags Students
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
 // @Param id path int true "Student ID"
 // @Success 200 {object} models.Student
 // @Router /students/{id} [get]
@@ -62,6 +56,7 @@ func GetStudent(c *gin.Context) {
 // @Tags Students
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
 // @Param fiscalNumber path string true "Student Fiscal Number"
 // @Success 200 {object} models.Student
 // @Router /students/fiscal_number/{fiscalNumber} [get]
@@ -85,6 +80,7 @@ func GetStudentByFiscalNumber(c *gin.Context) {
 // @Tags Students
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
 // @Param student body models.Student true "Student"
 // @Success 201 {object} models.Student
 // @Router /students [post]
@@ -109,6 +105,7 @@ func CreateStudent(c *gin.Context) {
 // @Tags Students
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
 // @Param id path int true "Student ID"
 // @Param student body models.Student true "Student"
 // @Success 200 {object} models.Student
@@ -142,6 +139,7 @@ func UpdateStudent(c *gin.Context) {
 // @Tags Students
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
 // @Param id path int true "Student ID"
 // @Param student body models.Student true "Student"
 // @Success 200 {object} models.Student
@@ -175,6 +173,7 @@ func EditStudent(c *gin.Context) {
 // @Tags Students
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
 // @Param id path int true "Student ID"
 // @Success 200
 // @Router /students/{id} [delete]

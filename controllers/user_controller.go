@@ -12,11 +12,11 @@ const ErrorCreatingUser = "Error creating user."
 
 func CreateUser(c *gin.Context) {
 	var userDTO models.UserDTO
-	if bindingOk := verifyAndBindUserDTO(c, &userDTO); !bindingOk {
+	if bindingOk := VerifyAndBindUserDTO(c, &userDTO); !bindingOk {
 		return
 	}
 
-	if noValidationErrors := validateUserDTO(c, userDTO); !noValidationErrors {
+	if noValidationErrors := ValidateUserDTO(c, userDTO); !noValidationErrors {
 		return
 	}
 
@@ -49,7 +49,7 @@ func GetUserByUsername(c *gin.Context) {
 	returnStatusOkWithEntity(c, userDTO)
 }
 
-func verifyAndBindUserDTO(c *gin.Context, obj any) bool {
+func VerifyAndBindUserDTO(c *gin.Context, obj any) bool {
 	err := util.VerifyAndBind(c, &obj)
 
 	if err != nil {
@@ -59,7 +59,7 @@ func verifyAndBindUserDTO(c *gin.Context, obj any) bool {
 	return true
 }
 
-func validateUserDTO(c *gin.Context, userDTO models.UserDTO) bool {
+func ValidateUserDTO(c *gin.Context, userDTO models.UserDTO) bool {
 	validationErrs := util.ValidateModel(userDTO)
 
 	if validationErrs != nil {

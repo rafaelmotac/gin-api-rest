@@ -48,3 +48,9 @@ func returnStatusConflictWithMessage(c *gin.Context, message string) {
 		"error": message,
 	})
 }
+
+func returnStatusUnauthorizedWithMessage(c *gin.Context, s string) {
+	c.JSON(http.StatusUnauthorized, gin.H{
+		"error": s,
+	})
+}

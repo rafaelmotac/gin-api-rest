@@ -5,6 +5,7 @@ import (
 	"api-go-gin/controllers"
 	"api-go-gin/database"
 	"api-go-gin/models"
+	"api-go-gin/properties"
 	"bytes"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
@@ -24,6 +25,7 @@ func SetupTestingRoutes() *gin.Engine {
 }
 
 func TestVerifyStatusCode(t *testing.T) {
+	properties.InitProperties()
 	r := SetupTestingRoutes()
 	r.GET("/", controllers.Greeting)
 
@@ -38,6 +40,7 @@ func TestVerifyStatusCode(t *testing.T) {
 }
 
 func TestGetAllStudents(t *testing.T) {
+	properties.InitProperties()
 	database.DbConnect()
 	createMockStudent()
 	defer deleteMockStudent()
@@ -57,6 +60,7 @@ func TestGetAllStudents(t *testing.T) {
 }
 
 func TestGetStudentByFiscalNumber(t *testing.T) {
+	properties.InitProperties()
 	database.DbConnect()
 	createMockStudent()
 	defer deleteMockStudent()
@@ -78,6 +82,7 @@ func TestGetStudentByFiscalNumber(t *testing.T) {
 }
 
 func TestGetStudentById(t *testing.T) {
+	properties.InitProperties()
 	database.DbConnect()
 	createMockStudent()
 	defer deleteMockStudent()
@@ -100,6 +105,7 @@ func TestGetStudentById(t *testing.T) {
 }
 
 func TestUpdateStudentById(t *testing.T) {
+	properties.InitProperties()
 	config.InitValidator()
 	database.DbConnect()
 	createMockStudent()
@@ -132,6 +138,7 @@ func TestUpdateStudentById(t *testing.T) {
 }
 
 func TestEditStudentById(t *testing.T) {
+	properties.InitProperties()
 	config.InitValidator()
 	database.DbConnect()
 	createMockStudent()
@@ -160,6 +167,7 @@ func TestEditStudentById(t *testing.T) {
 }
 
 func TestCreateStudent(t *testing.T) {
+	properties.InitProperties()
 	config.InitValidator()
 	database.DbConnect()
 	r := SetupTestingRoutes()
@@ -193,6 +201,7 @@ func TestCreateStudent(t *testing.T) {
 }
 
 func TestDeleteStudent(t *testing.T) {
+	properties.InitProperties()
 	database.DbConnect()
 	createMockStudent()
 	defer deleteMockStudent()

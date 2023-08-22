@@ -23,9 +23,8 @@ func CreateUser(user *models.UserDTO) (*models.UserDTO, problem.ApplicationError
 
 	userModel := user.ToModel()
 
-	err := database.DB.Create(userModel)
+	if err := database.DB.Create(userModel).Error; err != nil {
 
-	if err.Error != nil {
 		log.Println("Error creating user: ", err)
 		return nil,
 			&problem.MessageErrorCode{

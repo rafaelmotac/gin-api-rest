@@ -1,0 +1,12 @@
+server:
+  host: "localhost"
+  port: 9000
+database:
+  user: "root"
+  password: "root"
+  host: "localhost"
+  port: 30010
+  dbname: "root"
+  sslmode: "disable"
+jwt:
+  secret: "my_secret_key"
